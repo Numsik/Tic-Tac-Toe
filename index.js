@@ -21,3 +21,29 @@ const gameboard = (() =>{
 
     return {updateboard,updatemove,resetboard}
 })(); //okamzite spusteni 
+
+const player = ((name,marker) => {
+
+    return {name,marker}
+})
+
+const player1 = player("Anton", "X");
+const player2 = player("Honza", "O");
+
+const GameController = (() => {
+    let activeplayer = player1;
+
+    const playround = ((index) => {
+
+    })
+    
+    const switchplayer = (() => {
+        if (activeplayer === player1){
+            activeplayer = player2
+        }else{
+            activeplayer = player1
+        }
+    })
+
+
+})();
