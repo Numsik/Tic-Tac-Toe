@@ -9,8 +9,9 @@ const gameboard = (() =>{
     const updatemove = (index,player) => {
         if (board[index] === "" && index >= 0 && index < board.length){
             board[index] = player;
+            return true;
         }
-
+        return false;
     } 
 
     const resetboard = () => {
@@ -34,7 +35,12 @@ const GameController = (() => {
     let activeplayer = player1;
 
     const playround = ((index) => {
-
+        if(gameboard.updatemove(index,activeplayer.marker)){
+            switchplayer()
+        }else{
+            console.log("something went wrong")
+        }
+        
     })
     
     const switchplayer = (() => {
@@ -44,6 +50,7 @@ const GameController = (() => {
             activeplayer = player1
         }
     })
+    
 
-
+    return {playround}
 })();
