@@ -1,5 +1,3 @@
-
-
 const gameboard = (() =>{
     let board = ["","","","","","","","",""];
 
@@ -24,7 +22,6 @@ const gameboard = (() =>{
 })(); //okamzite spusteni 
 
 const player = ((name,marker) => {
-
     return {name,marker}
 })
 
@@ -61,6 +58,23 @@ const GameController = (() => {
         }
         return null;
     })
+    const divclicked = ((num) => {
+        playround(num)
+        DisplayController()
+    }); 
+
+    const DisplayController = (() => {
+        let board = gameboard.updateboard()
+        for(let i = 0; i < board.length; i++){
+            if (board[i] !== ""){
+                const div = document.getElementById(`${i}`)
+                div.innerHTML = `${board[i]}`
+                console.log(board[i])
+            }
+        }
+
+    });
+    
     
     const switchplayer = () => {
         if (activeplayer === player1){
@@ -69,12 +83,5 @@ const GameController = (() => {
             activeplayer = player1
         }
     }
-    return {playround,checkWinner}
+    return {playround,checkWinner,divclicked,DisplayController}
 })();
-
-GameController.playround(0); 
-GameController.playround(1); 
-GameController.playround(6);
-GameController.playround(4);
-GameController.playround(2); 
-GameController.playround(7);
