@@ -37,13 +37,13 @@ const GameController = (() => {
     const playround = ((index) => {
         if(gameboard.updatemove(index,activeplayer.marker)){
             const winner = checkWinner();
-            switchplayer()
             if (winner){
                 console.log(`${winner} wins the game!!`)
             }
         }else{
             console.log("something went wrong")
         }
+        switchplayer()
         
     })
     const checkWinner = (() => {
@@ -59,19 +59,22 @@ const GameController = (() => {
                 return board[a]
             }
         }
-        return player.marker;
+        return null;
     })
     
-    const switchplayer = (() => {
+    const switchplayer = () => {
         if (activeplayer === player1){
             activeplayer = player2
         }else{
             activeplayer = player1
         }
-    })
-
-
-    
-
-    return {playround,checkWinner,switchplayer}
+    }
+    return {playround,checkWinner}
 })();
+
+GameController.playround(0); 
+GameController.playround(1); 
+GameController.playround(6);
+GameController.playround(4);
+GameController.playround(2); 
+GameController.playround(7);
