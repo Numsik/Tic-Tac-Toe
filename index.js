@@ -30,8 +30,40 @@ const player2 = player("Honza", "O");
 
 const GameController = (() => {
     let activeplayer = player1;
+    let gameover = false;
+
+    const switchplayer = () => {
+        if (!gameover){
+            if (activeplayer === player1){
+                activeplayer = player2;
+                const activplr = document.getElementById("nexttomove")
+                activplr.textContent = `is next to move: ${activeplayer.marker}`
+            }else{
+                const activplr = document.getElementById("nexttomove")
+                activplr.textContent = `Is next to move ${activeplayer.marker}`
+                activeplayer = player1;
+            }
+        }
+
+    }
+    const restartGame = () => {
+        gameboard.resetboard()
+        
+        for(let i = 0; i < 9;i++){
+            const div = document.getElementById(`${i}`);
+            div.innerHTML = "";
+        }
+        nexttomove.innerHTML = "";
+        winner.innerHTML = "";
+        gameover = false;
+
+    };
 
     const playround = ((index) => {
+        if (gameover){
+            return;
+        }
+
         if(gameboard.updatemove(index,activeplayer.marker)){
             const winner = checkWinner();
             if (winner){
@@ -39,9 +71,11 @@ const GameController = (() => {
                 winnerhtml.textContent = `The winner is: ${winner}`
                 console.log(`${winner} wins the game!!`)
                 gameboard.updateboard()
+                gameover = true;
             }
         }else{
             console.log("something went wrong")
+            return;
         }
         switchplayer()
         
@@ -68,28 +102,17 @@ const GameController = (() => {
 
     const DisplayController = (() => {
         let board = gameboard.updateboard()
-        let checkwinner = GameController.checkWinner
 
         for(let i = 0; i < board.length; i++){
             if (board[i] !== ""){
                 const div = document.getElementById(`${i}`)
                 div.innerHTML = `${board[i]}`
+
             }
         }
 
     });
     
     
-    const switchplayer = () => {
-        if (activeplayer === player1){
-            const activplr = document.getElementById("nexttomove")
-            activplr.textContent = `is next to move: ${activeplayer.marker}`
-            activeplayer = player2;
-        }else{
-            const activplr = document.getElementById("nexttomove")
-            activplr.textContent = `Is next to move ${activeplayer.marker}`
-            activeplayer = player1;
-        }
-    }
-    return {playround,checkWinner,divclicked,DisplayController}
+    return {playround,checkWinner,divclicked,DisplayController,restartGame}
 })();
