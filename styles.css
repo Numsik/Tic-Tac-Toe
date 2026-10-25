@@ -1,6 +1,8 @@
 body{
     min-height: 100vh;
     place-items: center;
+    font-family: system-ui, -apple-system;
+    font-weight: 900;
 
 }
 #container {
@@ -13,5 +15,9 @@ body{
     box-sizing: border-box;
     height: 100px;
     border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
 
 }

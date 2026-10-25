@@ -35,7 +35,10 @@ const GameController = (() => {
         if(gameboard.updatemove(index,activeplayer.marker)){
             const winner = checkWinner();
             if (winner){
+                const winnerhtml = document.getElementById("winner")
+                winnerhtml.textContent = `The winner is: ${winner}`
                 console.log(`${winner} wins the game!!`)
+                gameboard.updateboard()
             }
         }else{
             console.log("something went wrong")
@@ -65,11 +68,12 @@ const GameController = (() => {
 
     const DisplayController = (() => {
         let board = gameboard.updateboard()
+        let checkwinner = GameController.checkWinner
+
         for(let i = 0; i < board.length; i++){
             if (board[i] !== ""){
                 const div = document.getElementById(`${i}`)
                 div.innerHTML = `${board[i]}`
-                console.log(board[i])
             }
         }
 
@@ -78,9 +82,13 @@ const GameController = (() => {
     
     const switchplayer = () => {
         if (activeplayer === player1){
-            activeplayer = player2
+            const activplr = document.getElementById("nexttomove")
+            activplr.textContent = `is next to move: ${activeplayer.marker}`
+            activeplayer = player2;
         }else{
-            activeplayer = player1
+            const activplr = document.getElementById("nexttomove")
+            activplr.textContent = `Is next to move ${activeplayer.marker}`
+            activeplayer = player1;
         }
     }
     return {playround,checkWinner,divclicked,DisplayController}
